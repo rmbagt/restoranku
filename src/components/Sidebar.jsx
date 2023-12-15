@@ -51,8 +51,7 @@ const variants = {
   nonexpanded: { width: "6%" },
 };
 
-function Sidebar({ pageIndex }) {
-  const [isExpanded, setIsExpanded] = useState(true);
+function Sidebar({ pageIndex, isExpanded, setIsExpanded }) {
   const [isChosen, setIsChosen] = useState(pageIndex);
 
   const navigate = useNavigate();
@@ -67,7 +66,7 @@ function Sidebar({ pageIndex }) {
       animate={isExpanded ? "expanded" : "nonexpanded"}
       variants={variants}
       className={
-        "py-10 h-screen flex flex-col border border-r-1 bg-[#FDFDFD] relative" +
+        "py-10 h-screen flex flex-col border border-r-1 bg-slate-200 relative" +
         (isExpanded ? " px-10" : " px-6")
       }
     >
@@ -78,7 +77,7 @@ function Sidebar({ pageIndex }) {
         <img src={RightArrowIcon} className="w-2" />
       </div>
 
-      <div className="logo-div flex space-x-4 items-center font-semibold text-2xl">
+      <div className="logo-div flex space-x-4 items-center font-semibold text-2xl ml-[10px]">
         <img className="w-6 h-8" src={Logo} />
         <span className={!isExpanded ? "hidden" : "block"}>Restoranku</span>
       </div>
@@ -89,9 +88,9 @@ function Sidebar({ pageIndex }) {
             <li
               key={index}
               className={
-                "flex space-x-3 w-full p-3 rounded hover:cursor-pointer hover:bg-slate-100" +
+                "flex space-x-3 w-full p-3 rounded hover:cursor-pointer hover:bg-slate-300" +
                 (!isExpanded ? " justify-center" : "") +
-                (isChosen === index ? " bg-slate-300" : "")
+                (isChosen === index ? " bg-slate-400" : "")
               }
               onClick={() => handleNavigation(index, content.link)}
             >

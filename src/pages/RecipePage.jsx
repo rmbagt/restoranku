@@ -1,10 +1,14 @@
 import Sidebar from "../components/Sidebar";
 import Recipe from "../components/Recipe";
 
-function RecipePage() {
+function RecipePage({ isExpanded, setIsExpanded }) {
   return (
     <div className="flex">
-      <Sidebar pageIndex={5} />
+      <Sidebar
+        pageIndex={5}
+        isExpanded={isExpanded}
+        setIsExpanded={setIsExpanded}
+      />
 
       <main className="grow">
         <Recipe />

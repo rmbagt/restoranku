@@ -9,16 +9,57 @@ import MenuPage from "./pages/MenuPage";
 import RecipePage from "./pages/RecipePage";
 
 function App() {
+  const [isExpanded, setIsExpanded] = useState(true);
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<DashboardPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/order" element={<OrderPage />} />
-        <Route path="/customer" element={<CustomerPage />} />
-        <Route path="/employee" element={<EmployeePage />} />
-        <Route path="/menu" element={<MenuPage />} />
-        <Route path="/recipe" element={<RecipePage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <DashboardPage
+              isExpanded={isExpanded}
+              setIsExpanded={setIsExpanded}
+            />
+          }
+        />
+        <Route
+          path="/order"
+          element={
+            <OrderPage isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+          }
+        />
+        <Route
+          path="/customer"
+          element={
+            <CustomerPage
+              isExpanded={isExpanded}
+              setIsExpanded={setIsExpanded}
+            />
+          }
+        />
+        <Route
+          path="/employee"
+          element={
+            <EmployeePage
+              isExpanded={isExpanded}
+              setIsExpanded={setIsExpanded}
+            />
+          }
+        />
+        <Route
+          path="/menu"
+          element={
+            <MenuPage isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+          }
+        />
+        <Route
+          path="/recipe"
+          element={
+            <RecipePage isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+          }
+        />
       </Routes>
     </Router>
   );
