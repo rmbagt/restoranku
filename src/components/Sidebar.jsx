@@ -47,8 +47,8 @@ const contents = [
 ];
 
 const variants = {
-  expanded: { width: "20%" },
-  nonexpanded: { width: "6%" },
+  expanded: { width: "250px" },
+  nonexpanded: { width: "100px" },
 };
 
 function Sidebar({ pageIndex, isExpanded, setIsExpanded }) {
@@ -77,9 +77,9 @@ function Sidebar({ pageIndex, isExpanded, setIsExpanded }) {
         <img src={RightArrowIcon} className="w-2" />
       </div>
 
-      <div className="logo-div flex space-x-4 items-center font-semibold text-2xl ml-[10px]">
+      <div className="logo-div flex space-x-4 items-center font-semibold text-xl ml-3">
         <img className="w-6 h-8" src={Logo} />
-        <span className={!isExpanded ? "hidden" : "block"}>Restoranku</span>
+        <span className={!isExpanded ? "hidden" : " block"}>Restoranku</span>
       </div>
 
       <div className="flex flex-col space-y-8 mt-12">
