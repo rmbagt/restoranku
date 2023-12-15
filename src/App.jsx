@@ -1,21 +1,26 @@
 import { useState } from "react";
-import Navbar from "./components/Navbar";
-import Dashboard from "./components/Dashboard";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import DashboardPage from "./pages/DashboardPage";
+import OrderPage from "./pages/OrderPage";
+import CustomerPage from "./pages/CustomerPage";
+import EmployeePage from "./pages/EmployeePage";
+import MenuPage from "./pages/MenuPage";
+import RecipePage from "./pages/RecipePage";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div className="flex">
-        {/* Side Navigation Bar */}
-        <Navbar />
-        {/* Main component on basis of selected navigation from nav bar */}
-        <main className="grow">
-          <Dashboard />
-        </main>
-      </div>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/order" element={<OrderPage />} />
+        <Route path="/customer" element={<CustomerPage />} />
+        <Route path="/employee" element={<EmployeePage />} />
+        <Route path="/menu" element={<MenuPage />} />
+        <Route path="/recipe" element={<RecipePage />} />
+      </Routes>
+    </Router>
   );
 }
 
