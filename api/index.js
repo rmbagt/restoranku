@@ -9,6 +9,14 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Lamadev123",
-  database: "test",
+  password: "darkgaming123",
+  database: "restoranku",
+});
+
+app.get("/", (req, res) => {
+  res.json("hello");
+});
+
+app.listen(8800, () => {
+  console.log("Server running on port 8800")
 });
