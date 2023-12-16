@@ -1,9 +1,9 @@
-function Employee() {
+function Waiter() {
   return (
     <div className="flex flex-col py-10 px-16 h-screen overflow-y-auto w-full">
-      <h2 className="text-2xl">Employee</h2>
+      <h2 className="text-2xl">Waiter</h2>
     </div>
   );
 }
 
-export default Employee;
+export default Waiter;

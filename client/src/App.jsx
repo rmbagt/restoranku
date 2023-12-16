@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 import OrderPage from "./pages/OrderPage";
 import CustomerPage from "./pages/CustomerPage";
-import EmployeePage from "./pages/EmployeePage";
+import WaiterPage from "./pages/WaiterPage";
 import MenuPage from "./pages/MenuPage";
 import RecipePage from "./pages/RecipePage";
 
@@ -40,12 +40,9 @@ function App() {
           }
         />
         <Route
-          path="/employee"
+          path="/waiter"
           element={
-            <EmployeePage
-              isExpanded={isExpanded}
-              setIsExpanded={setIsExpanded}
-            />
+            <WaiterPage isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
           }
         />
         <Route

@@ -31,8 +31,8 @@ const contents = [
   },
   {
     icon: PersonStanding,
-    text: "Employee",
-    link: "/employee",
+    text: "Waiter",
+    link: "/waiter",
   },
   {
     icon: BookOpenText,

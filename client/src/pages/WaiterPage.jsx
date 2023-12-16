@@ -1,7 +1,7 @@
 import Sidebar from "../components/Sidebar";
-import Employee from "../components/Employee";
+import Waiter from "../components/Waiter";
 
-function EmployeePage({ isExpanded, setIsExpanded }) {
+function WaiterPage({ isExpanded, setIsExpanded }) {
   return (
     <div className="flex">
       <Sidebar
@@ -11,10 +11,10 @@ function EmployeePage({ isExpanded, setIsExpanded }) {
       />
 
       <main className="grow">
-        <Employee />
+        <Waiter />
       </main>
     </div>
   );
 }
 
-export default EmployeePage;
+export default WaiterPage;
