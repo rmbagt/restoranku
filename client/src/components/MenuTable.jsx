@@ -97,7 +97,7 @@ function MenuTable({ setPrice }) {
             <TableColumn key={column.key}>{column.label}</TableColumn>
           )}
         </TableHeader>
-        <TableBody items={menu}>
+        <TableBody items={menu} emptyContent={"No data to display."}>
           {(item) => (
             <TableRow key={item.key}>
               {(columnKey) => (

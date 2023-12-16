@@ -5,77 +5,119 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  getKeyValue,
 } from "@nextui-org/react";
+
+const rows = [
+  {
+    key: "1",
+    customerName: "John Doe",
+    waiterName: "Jane Doe",
+    dateOrder: "2021-08-31",
+    tableNumber: 1,
+    totalPrice: "100,000",
+  },
+  {
+    key: "2",
+    customerName: "John Doe",
+    waiterName: "Jane Doe",
+    dateOrder: "2021-08-31",
+    tableNumber: 1,
+    totalPrice: "100,000",
+  },
+  {
+    key: "3",
+    customerName: "John Doe",
+    waiterName: "Jane Doe",
+    dateOrder: "2021-08-31",
+    tableNumber: 1,
+    totalPrice: "100,000",
+  },
+  {
+    key: "4",
+    customerName: "John Doe",
+    waiterName: "Jane Doe",
+    dateOrder: "2021-08-31",
+    tableNumber: 1,
+    totalPrice: "100,000",
+  },
+  {
+    key: "5",
+    customerName: "John Doe",
+    waiterName: "Jane Doe",
+    dateOrder: "2021-08-31",
+    tableNumber: 1,
+    totalPrice: "100,000",
+  },
+  {
+    key: "6",
+    customerName: "John Doe",
+    waiterName: "Jane Doe",
+    dateOrder: "2021-08-31",
+    tableNumber: 1,
+    totalPrice: "100,000",
+  },
+  {
+    key: "7",
+    customerName: "John Doe",
+    waiterName: "Jane Doe",
+    dateOrder: "2021-08-31",
+    tableNumber: 1,
+    totalPrice: "100,000",
+  },
+  {
+    key: "8",
+    customerName: "John Doe",
+    waiterName: "Jane Doe",
+    dateOrder: "2021-08-31",
+    tableNumber: 1,
+    totalPrice: "100,000",
+  },
+];
+
+const columns = [
+  {
+    key: "customerName",
+    label: "CUSTOMER NAME",
+  },
+  {
+    key: "waiterName",
+    label: "WAITER NAME",
+  },
+  {
+    key: "dateOrder",
+    label: "DATE ORDER",
+  },
+  {
+    key: "tableNumber",
+    label: "TABLE NUMBER",
+  },
+  {
+    key: "totalPrice",
+    label: "TOTAL PRICE",
+  },
+];
 
 function HistoryTable() {
   return (
-    <div className="flex flex-col gap-3">
-      <Table
-        color="default"
-        selectionMode="single"
-        aria-label="History table"
-        className="h-56 overflow-y-auto"
-      >
-        <TableHeader>
-          <TableColumn>CUSTOMER NAME</TableColumn>
-          <TableColumn>WAITER NAME</TableColumn>
-          <TableColumn>ORDER DATE</TableColumn>
-          <TableColumn>TABLE NUMBER</TableColumn>
-          <TableColumn>TOTAL PRICE</TableColumn>
-        </TableHeader>
-        <TableBody>
-          <TableRow key="1">
-            <TableCell>John Doe</TableCell>
-            <TableCell>John Doe</TableCell>
-            <TableCell>12/12/2021</TableCell>
-            <TableCell>1</TableCell>
-            <TableCell>10000</TableCell>
+    <Table
+      aria-label="History table"
+      className="h-56 overflow-y-auto"
+      selectionMode="single"
+    >
+      <TableHeader columns={columns}>
+        {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
+      </TableHeader>
+      <TableBody items={rows} emptyContent={"No data to display."}>
+        {(item) => (
+          <TableRow key={item.key}>
+            {(columnKey) => (
+              <TableCell>{getKeyValue(item, columnKey)}</TableCell>
+            )}
           </TableRow>
-          <TableRow key="2">
-            <TableCell>John Doe</TableCell>
-            <TableCell>John Doe</TableCell>
-            <TableCell>12/12/2021</TableCell>
-            <TableCell>1</TableCell>
-            <TableCell>10000</TableCell>
-          </TableRow>
-          <TableRow key="3">
-            <TableCell>John Doe</TableCell>
-            <TableCell>John Doe</TableCell>
-            <TableCell>12/12/2021</TableCell>
-            <TableCell>1</TableCell>
-            <TableCell>10000</TableCell>
-          </TableRow>
-          <TableRow key="4">
-            <TableCell>John Doe</TableCell>
-            <TableCell>John Doe</TableCell>
-            <TableCell>12/12/2021</TableCell>
-            <TableCell>1</TableCell>
-            <TableCell>10000</TableCell>
-          </TableRow>
-          <TableRow key="5">
-            <TableCell>John Doe</TableCell>
-            <TableCell>John Doe</TableCell>
-            <TableCell>12/12/2021</TableCell>
-            <TableCell>1</TableCell>
-            <TableCell>10000</TableCell>
-          </TableRow>
-          <TableRow key="6">
-            <TableCell>John Doe</TableCell>
-            <TableCell>John Doe</TableCell>
-            <TableCell>12/12/2021</TableCell>
-            <TableCell>1</TableCell>
-            <TableCell>10000</TableCell>
-          </TableRow>
-          <TableRow key="7">
-            <TableCell>John Doe</TableCell>
-            <TableCell>John Doe</TableCell>
-            <TableCell>12/12/2021</TableCell>
-            <TableCell>1</TableCell>
-            <TableCell>10000</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </div>
+        )}
+      </TableBody>
+    </Table>
   );
 }
 
