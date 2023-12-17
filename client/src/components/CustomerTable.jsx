@@ -39,7 +39,7 @@ function CustomerTable() {
     <Table
       aria-label="Customer table"
       className="h-56 overflow-y-auto"
-      selectionMode="single"
+      selectionMode="none"
     >
       <TableHeader columns={columns}>
         {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}

@@ -63,6 +63,35 @@ const menu = [
     price: 5000,
     status: "available",
   },
+  {
+    id: "7",
+    name: "Es Kelapa",
+    type: "Drink",
+    price: 10000,
+    status: "available",
+  },
+  {
+    id: "8",
+    name: "Soto Ayam",
+    type: "Food",
+    price: 20000,
+    status: "available",
+  },
+  {
+    id: "9",
+    name: "Soto Daging",
+    type: "Food",
+    price: 20000,
+    status: "available",
+  },
+  {
+    id: "10",
+    name: "Soto Kambing",
+    type: "Food",
+    price: 20000,
+    status: "available",
+  },
+
 ];
 
 export { columns, menu, statusOptions };

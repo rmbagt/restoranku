@@ -143,7 +143,6 @@ function MenuTableDetail() {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu>
-                <DropdownItem>View</DropdownItem>
                 <DropdownItem>Edit</DropdownItem>
                 <DropdownItem>Delete</DropdownItem>
               </DropdownMenu>
@@ -326,7 +325,7 @@ function MenuTableDetail() {
       }}
       classNames={classNames}
       selectedKeys={selectedKeys}
-      selectionMode="single"
+      selectionMode="none"
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
