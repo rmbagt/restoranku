@@ -8,73 +8,31 @@ import {
   getKeyValue,
   Input,
 } from "@nextui-org/react";
+import { columns, menu } from "../data/menuData";
 import { useEffect, useState } from "react";
-
-const menu = [
-  {
-    key: "1",
-    name: "Nasi Goreng",
-    type: "Food",
-    price: 15000,
-  },
-  {
-    key: "2",
-    name: "Es Teh",
-    type: "Drink",
-    price: 5000,
-  },
-  {
-    key: "3",
-    name: "Ayam Goreng",
-    type: "Food",
-    price: 20000,
-  },
-  {
-    key: "4",
-    name: "Ayam Bakar",
-    type: "Food",
-    price: 20000,
-  },
-  {
-    key: "5",
-    name: "Bubur Ayam",
-    type: "Food",
-    price: 20000,
-  },
-  {
-    key: "6",
-    name: "Es Jeruk",
-    type: "Drink",
-    price: 5000,
-  },
-];
-
-const columns = [
-  {
-    key: "name",
-    label: "MENU NAME",
-  },
-  {
-    key: "type",
-    label: "TYPE",
-  },
-  {
-    key: "price",
-    label: "PRICE",
-  },
-];
 
 function MenuTable({ setPrice }) {
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [quantity, setQuantity] = useState([]);
 
+  const filteredColumns = columns.filter(
+    (column) =>
+      column.key === "name" ||
+      column.key === "type" ||
+      column.key === "price" ||
+      column.key === "status"
+  );
+  const disabledKeys = menu
+    .filter((item) => item.status === "empty")
+    .map((item) => item.id);
+
   useEffect(() => {
     const newItems = menu.filter((item) =>
-      Array.from(selectedKeys).includes(item.key)
+      Array.from(selectedKeys).includes(item.id)
     );
     const newPrice = newItems.reduce(
-      (acc, value) => acc + value.price * Number(quantity[value.key]),
+      (acc, value) => acc + value.price * Number(quantity[value.id]),
       0
     );
 
@@ -87,19 +45,19 @@ function MenuTable({ setPrice }) {
       <Table
         aria-label="Menu table"
         selectionMode="multiple"
-        disabledKeys={["4"]}
+        disabledKeys={disabledKeys}
         selectedKeys={selectedKeys}
         onSelectionChange={setSelectedKeys}
         className="overflow-y-auto h-56"
       >
-        <TableHeader columns={columns}>
+        <TableHeader columns={filteredColumns}>
           {(column) => (
             <TableColumn key={column.key}>{column.label}</TableColumn>
           )}
         </TableHeader>
         <TableBody items={menu} emptyContent={"No data to display."}>
           {(item) => (
-            <TableRow key={item.key}>
+            <TableRow key={item.id}>
               {(columnKey) => (
                 <TableCell>{getKeyValue(item, columnKey)}</TableCell>
               )}
@@ -113,7 +71,7 @@ function MenuTable({ setPrice }) {
         {selectedItems.length !== 0 ? (
           selectedItems.map((item) => (
             <Input
-              key={item.key}
+              key={item.id}
               type="text"
               label={item.name}
               labelPlacement="outside-left"
@@ -122,7 +80,7 @@ function MenuTable({ setPrice }) {
               onChange={(e) => {
                 setQuantity((prev) => ({
                   ...prev,
-                  [item.key]: e.target.value,
+                  [item.id]: e.target.value,
                 }));
               }}
             />
