@@ -10,6 +10,7 @@ import {
   LayoutDashboard,
   LibraryBig,
   BookOpenText,
+  Soup,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -43,6 +44,11 @@ const contents = [
     icon: LibraryBig,
     text: "Recipe",
     link: "/recipe",
+  },
+  {
+    icon: Soup,
+    text: "Ingredients",
+    link: "/ingredients",
   },
 ];
 

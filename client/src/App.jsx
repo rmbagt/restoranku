@@ -7,6 +7,7 @@ import CustomerPage from "./pages/CustomerPage";
 import WaiterPage from "./pages/WaiterPage";
 import MenuPage from "./pages/MenuPage";
 import RecipePage from "./pages/RecipePage";
+import IngredientsPage from "./pages/IngredientsPage";
 
 function App() {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -55,6 +56,15 @@ function App() {
           path="/recipe"
           element={
             <RecipePage isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+          }
+        />
+        <Route
+          path="/ingredients"
+          element={
+            <IngredientsPage
+              isExpanded={isExpanded}
+              setIsExpanded={setIsExpanded}
+            />
           }
         />
       </Routes>
