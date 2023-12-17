@@ -3,7 +3,8 @@ import { useState } from "react";
 import IngredientTable from "./IngredientTable";
 
 function Ingredients() {
-  const [customerName, setCustomerName] = useState("");
+  const [ingredientName, setIngredientName] = useState("");
+  const [stock, setStock] = useState(0);
 
   return (
     <div className="flex flex-col py-10 px-16 h-screen overflow-y-auto w-full gap-2">
@@ -17,16 +18,16 @@ function Ingredients() {
               label="Ingredients name"
               placeholder="Butter"
               labelPlacement="inside"
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
+              value={ingredientName}
+              onChange={(e) => setIngredientName(e.target.value)}
             />
             <Input
               type="number"
               label="Stock"
               placeholder="0"
               labelPlacement="inside"
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
+              value={stock}
+              onChange={(e) => setStock(e.target.value)}
             />
           </div>
           <Button

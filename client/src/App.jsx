@@ -6,7 +6,6 @@ import OrderPage from "./pages/OrderPage";
 import CustomerPage from "./pages/CustomerPage";
 import WaiterPage from "./pages/WaiterPage";
 import MenuPage from "./pages/MenuPage";
-import RecipePage from "./pages/RecipePage";
 import IngredientsPage from "./pages/IngredientsPage";
 
 function App() {
@@ -50,12 +49,6 @@ function App() {
           path="/menu"
           element={
             <MenuPage isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
-          }
-        />
-        <Route
-          path="/recipe"
-          element={
-            <RecipePage isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
           }
         />
         <Route

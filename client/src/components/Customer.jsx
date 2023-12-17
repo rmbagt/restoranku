@@ -1,16 +1,27 @@
-import { Button, Input } from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 import { useState } from "react";
 import CustomerTable from "./CustomerTable";
+import axios from "axios";
 
 function Customer() {
   const [customerName, setCustomerName] = useState("");
+
+  async function handleAddCustomer() {
+    const data = { name: customerName };
+
+    try {
+      await axios.post("http://localhost:8800/customers", data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className="flex flex-col py-10 px-16 h-screen overflow-y-auto w-full gap-2">
       <h2 className="text-2xl">Customer</h2>
       <div>
         <h3 className="py-4 text-lg">Add Customer</h3>
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" onSubmit={handleAddCustomer}>
           <div className="flex w-fit flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
             <Input
               type="text"
@@ -21,12 +32,9 @@ function Customer() {
               onChange={(e) => setCustomerName(e.target.value)}
             />
           </div>
-          <Button
-            color="primary"
-            className="w-fit text-base font-semibold text-white"
-          >
+          <button className="w-20 rounded-lg text-base font-semibold text-white bg-blue-600 p-2">
             Add
-          </Button>
+          </button>
         </form>
       </div>
       <div>

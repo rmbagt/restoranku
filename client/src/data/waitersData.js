@@ -1,17 +1,13 @@
-const waiters = [
-  {
-    id: 1,
-    name: "John",
-  },
-  {
-    id: 2,
-    name: "Doe",
-  },
-  {
-    id: 3,
-    name: "Jane",
-  },
-];
+import axios from "axios";
+let waiters;
+
+try {
+  const raw = await axios.get("http://localhost:8800/waiters");
+  waiters = raw.data;
+
+} catch (err) {
+  console.log(err);
+}
 
 const columns = [
   {

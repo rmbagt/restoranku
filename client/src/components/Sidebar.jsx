@@ -41,11 +41,6 @@ const contents = [
     link: "/menu",
   },
   {
-    icon: LibraryBig,
-    text: "Recipe",
-    link: "/recipe",
-  },
-  {
     icon: Soup,
     text: "Ingredients",
     link: "/ingredients",

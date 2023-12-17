@@ -1,17 +1,13 @@
-const customers = [
-  {
-    id: 1,
-    name: "John",
-  },
-  {
-    id: 2,
-    name: "Doe",
-  },
-  {
-    id: 3,
-    name: "Jane",
-  },
-];
+import axios from "axios";
+let customers;
+
+try {
+  const raw = await axios.get("http://localhost:8800/customers");
+  customers = raw.data;
+
+} catch (err) {
+  console.log(err);
+}
 
 const columns = [
   {

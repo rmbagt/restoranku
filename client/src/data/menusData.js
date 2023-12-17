@@ -27,6 +27,7 @@ const menus = [
     type: "Food",
     price: 15000,
     status: "available",
+    ingredient: [["Nasi", "Telur", "Bawang Merah", "Bawang Putih", "Kecap"], [1, 2, 3, 3, 1]]
   },
   {
     id: "2",
@@ -34,6 +35,7 @@ const menus = [
     type: "Drink",
     price: 5000,
     status: "available",
+    ingredient: [["Teh", "Gula", "Es"], [1, 1, 1]]
   },
   {
     id: "3",
@@ -41,6 +43,7 @@ const menus = [
     type: "Food",
     price: 20000,
     status: "limited",
+    ingredient: [["Ayam", "Tepung", "Garam", "Merica"], [1, 1, 1, 1]]
   },
   {
     id: "4",
@@ -48,6 +51,7 @@ const menus = [
     type: "Food",
     price: 20000,
     status: "empty",
+    ingredient: [["Ayam", "Garam", "Merica"], [1, 1, 1]]
   },
   {
     id: "5",
@@ -55,6 +59,7 @@ const menus = [
     type: "Food",
     price: 20000,
     status: "available",
+    ingredient: [["Ayam", "Beras", "Garam", "Merica"], [1, 1, 1, 1]]
   },
   {
     id: "6",
@@ -62,36 +67,8 @@ const menus = [
     type: "Drink",
     price: 5000,
     status: "available",
+    ingredient: [["Jeruk", "Gula", "Es"], [1, 1, 1]]
   },
-  {
-    id: "7",
-    name: "Es Kelapa",
-    type: "Drink",
-    price: 10000,
-    status: "available",
-  },
-  {
-    id: "8",
-    name: "Soto Ayam",
-    type: "Food",
-    price: 20000,
-    status: "available",
-  },
-  {
-    id: "9",
-    name: "Soto Daging",
-    type: "Food",
-    price: 20000,
-    status: "available",
-  },
-  {
-    id: "10",
-    name: "Soto Kambing",
-    type: "Food",
-    price: 20000,
-    status: "available",
-  },
-
 ];
 
 export { columns, menus, statusOptions };

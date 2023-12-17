@@ -31,7 +31,7 @@ const statusColorMap = {
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "type", "price", "status", "actions"];
 
-function MenuTableDetail() {
+function MenuTableDetail({ setSelectedMenu }) {
   const [filterValue, setFilterValue] = useState("");
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = useState(
@@ -142,7 +142,10 @@ function MenuTableDetail() {
                   <VerticalDotsIcon className="text-default-400" />
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu>
+              <DropdownMenu aria-label="dropdown">
+                <DropdownItem onClick={() => setSelectedMenu(menu)}>
+                  Show Ingredients
+                </DropdownItem>
                 <DropdownItem>Edit</DropdownItem>
                 <DropdownItem>Delete</DropdownItem>
               </DropdownMenu>
