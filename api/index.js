@@ -95,6 +95,31 @@ app.put("/ingredients/:id", (req, res) => {
   });
 });
 
+app.post("/menus", (req, res) => {
+  const q = "INSERT INTO menus(`name`, `price`) VALUES (?)";
+
+  const values = [req.body.name, req.body.price];
+
+  db.query(q, [values], (err, data) => {
+    if (err) return res.send(err);
+
+    return res.json(data);
+  });
+});
+
+app.post("/recipe", (req, res) => {
+  for (let i = 0; i < req.body.selectedIngredient.length; i++) {
+    const q = "INSERT INTO recipe( `idMenu`, `idIngredient`) VALUES (?)";
+    const values = [req.body.name, req.body.selectedIngredient[i]];
+
+    db.query(q, [values], (err, data) => {
+      if (err) return res.send(err);
+
+      return res.json(data);
+    });
+  }
+
+});
 
 app.listen(8800, () => {
   console.log("Server running on port 8800")
