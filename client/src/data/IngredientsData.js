@@ -1,20 +1,13 @@
-const ingredients = [
-  {
-    id: 1,
-    name: "Ayam",
-    stock: 10,
-  },
-  {
-    id: 2,
-    name: "Bawang Putih",
-    stock: 10,
-  },
-  {
-    id: 3,
-    name: "Bawang Merah",
-    stock: 10,
-  },
-];
+import axios from "axios";
+let ingredients;
+
+try {
+  const raw = await axios.get("http://localhost:8800/ingredients");
+  ingredients = raw.data;
+
+} catch (err) {
+  console.log(err);
+}
 
 const columns = [
   {

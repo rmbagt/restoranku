@@ -32,7 +32,7 @@ function Waiter() {
               onChange={(e) => setWaiterName(e.target.value)}
             />
           </div>
-          <button className="w-20 rounded-lg text-base font-semibold text-white bg-blue-600 p-2">
+          <button className="w-20 rounded-lg text-base font-semibold text-white bg-blue-600 hover:bg-blue-500 p-2">
             Add
           </button>
         </form>

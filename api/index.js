@@ -60,6 +60,41 @@ app.post("/waiters", (req, res) => {
   });
 });
 
+app.get("/ingredients", (req, res) => {
+  const q = "SELECT * FROM ingredients";
+
+  db.query(q, (err, data) => {
+    if (err) return res.json(err);
+    res.json(data);
+  });
+});
+
+app.post("/ingredients", (req, res) => {
+  const q = "INSERT INTO ingredients(`name`, `stock`) VALUES (?)";
+
+  const values = [req.body.name, req.body.stock];
+
+  db.query(q, [values], (err, data) => {
+    if (err) return res.send(err);
+
+    return res.json(data);
+  });
+});
+
+app.put("/ingredients/:id", (req, res) => {
+  const q = "UPDATE ingredients SET `stock`= ? WHERE id = ?";
+
+  const values = [
+    req.body.stock,
+    req.params.id,
+  ];
+
+  db.query(q, [...values], (err, data) => {
+    if (err) return res.send(err);
+    return res.json(data);
+  });
+});
+
 
 app.listen(8800, () => {
   console.log("Server running on port 8800")
