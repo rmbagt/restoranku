@@ -5,6 +5,7 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -14,8 +15,51 @@ const db = mysql.createConnection({
 });
 
 app.get("/", (req, res) => {
-  res.json("hello");
+  res.json("Welcome to Restoranku API");
 });
+
+app.get("/customers", (req, res) => {
+  const q = "SELECT * FROM customers";
+
+  db.query(q, (err, data) => {
+    if (err) return res.json(err);
+    res.json(data);
+  });
+});
+
+app.post("/customers", (req, res) => {
+  const q = "INSERT INTO customers(`name`) VALUES (?)";
+
+  const values = [req.body.name];
+
+  db.query(q, [values], (err, data) => {
+    if (err) return res.send(err);
+
+    return res.json(data);
+  });
+});
+
+app.get("/waiters", (req, res) => {
+  const q = "SELECT * FROM waiters";
+
+  db.query(q, (err, data) => {
+    if (err) return res.json(err);
+    res.json(data);
+  });
+});
+
+app.post("/waiters", (req, res) => {
+  const q = "INSERT INTO waiters(`name`) VALUES (?)";
+
+  const values = [req.body.name];
+
+  db.query(q, [values], (err, data) => {
+    if (err) return res.send(err);
+
+    return res.json(data);
+  });
+});
+
 
 app.listen(8800, () => {
   console.log("Server running on port 8800")
