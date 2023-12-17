@@ -19,7 +19,7 @@ import { PlusIcon } from "./PlusIcon";
 import { VerticalDotsIcon } from "./VerticalDotsIcon";
 import { SearchIcon } from "./SearchIcon";
 import { ChevronDownIcon } from "./ChevronDownIcon";
-import { columns, menu, statusOptions } from "../data/menuData";
+import { columns, menus, statusOptions } from "../data/menusData";
 import { capitalize } from "../data/utils";
 import { useCallback, useMemo, useState } from "react";
 
@@ -45,7 +45,7 @@ function MenuTableDetail() {
   });
   const [page, setPage] = useState(1);
 
-  const pages = Math.ceil(menu.length / rowsPerPage);
+  const pages = Math.ceil(menus.length / rowsPerPage);
 
   const hasSearchFilter = Boolean(filterValue);
 
@@ -58,7 +58,7 @@ function MenuTableDetail() {
   }, [visibleColumns]);
 
   const filteredItems = useMemo(() => {
-    let filteredMenus = [...menu];
+    let filteredMenus = [...menus];
 
     if (hasSearchFilter) {
       filteredMenus = filteredMenus.filter((menu) =>
@@ -75,7 +75,7 @@ function MenuTableDetail() {
     }
 
     return filteredMenus;
-  }, [menu, filterValue, statusFilter]);
+  }, [menus, filterValue, statusFilter]);
 
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
@@ -248,7 +248,7 @@ function MenuTableDetail() {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {menu.length} menu
+            Total {menus.length} menu
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -270,7 +270,7 @@ function MenuTableDetail() {
     visibleColumns,
     onSearchChange,
     onRowsPerPageChange,
-    menu.length,
+    menus.length,
     hasSearchFilter,
   ]);
 

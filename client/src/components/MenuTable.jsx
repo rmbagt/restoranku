@@ -8,7 +8,7 @@ import {
   getKeyValue,
   Input,
 } from "@nextui-org/react";
-import { columns, menu } from "../data/menuData";
+import { columns, menus } from "../data/menusData";
 import { useEffect, useState } from "react";
 
 function MenuTable({ setPrice }) {
@@ -23,12 +23,12 @@ function MenuTable({ setPrice }) {
       column.key === "price" ||
       column.key === "status"
   );
-  const disabledKeys = menu
+  const disabledKeys = menus
     .filter((item) => item.status === "empty")
     .map((item) => item.id);
 
   useEffect(() => {
-    const newItems = menu.filter((item) =>
+    const newItems = menus.filter((item) =>
       Array.from(selectedKeys).includes(item.id)
     );
     const newPrice = newItems.reduce(
@@ -55,7 +55,7 @@ function MenuTable({ setPrice }) {
             <TableColumn key={column.key}>{column.label}</TableColumn>
           )}
         </TableHeader>
-        <TableBody items={menu} emptyContent={"No data to display."}>
+        <TableBody items={menus} emptyContent={"No data to display."}>
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => (

@@ -6,6 +6,7 @@ import {
   Button,
 } from "@nextui-org/react";
 import { useMemo, useState } from "react";
+import { waiters } from "../data/waitersData";
 
 function WaiterList() {
   const [selectedKeys, setSelectedKeys] = useState(new Set(["Select waiter"]));
@@ -30,11 +31,9 @@ function WaiterList() {
         selectedKeys={selectedKeys}
         onSelectionChange={setSelectedKeys}
       >
-        <DropdownItem key="Kevin">Kevin</DropdownItem>
-        <DropdownItem key="Dave">Dave</DropdownItem>
-        <DropdownItem key="Gerald">Gerald</DropdownItem>
-        <DropdownItem key="Siti">Siti</DropdownItem>
-        <DropdownItem key="Sri">Sri</DropdownItem>
+        {waiters.map((waiter) => (
+          <DropdownItem key={waiter.name}>{waiter.name}</DropdownItem>
+        ))}
       </DropdownMenu>
     </Dropdown>
   );

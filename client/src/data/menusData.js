@@ -20,7 +20,7 @@ const statusOptions = [
 
 ];
 
-const menu = [
+const menus = [
   {
     id: "1",
     name: "Nasi Goreng",
@@ -94,4 +94,4 @@ const menu = [
 
 ];
 
-export { columns, menu, statusOptions };
+export { columns, menus, statusOptions };
