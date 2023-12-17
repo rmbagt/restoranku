@@ -34,10 +34,10 @@ const columns = [
   },
 ];
 
-function CustomerTable() {
+function WaiterTable() {
   return (
     <Table
-      aria-label="Customer table"
+      aria-label="Waiter table"
       className="h-56 overflow-y-auto"
       selectionMode="single"
     >
@@ -57,4 +57,4 @@ function CustomerTable() {
   );
 }
 
-export default CustomerTable;
+export default WaiterTable;
