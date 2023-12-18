@@ -95,6 +95,15 @@ app.put("/ingredients/:id", (req, res) => {
   });
 });
 
+app.get("/menus", (req, res) => {
+  const q = "SELECT * FROM menus";
+
+  db.query(q, (err, data) => {
+    if (err) return res.json(err);
+    res.json(data);
+  });
+});
+
 app.post("/menus", (req, res) => {
   const q = "INSERT INTO menus(`name`, `price`) VALUES (?)";
 
@@ -119,6 +128,31 @@ app.post("/recipe", (req, res) => {
     });
   }
 
+});
+
+app.post("/orders", (req, res) => {
+  const q = "INSERT INTO orders(`name`, `price`, `tableNumber`) VALUES (?)";
+
+  const values = [req.body.name, req.body.price, req.body.tableNumber];
+
+  db.query(q, [values], (err, data) => {
+    if (err) return res.send(err);
+
+    return res.json(data);
+  });
+});
+
+app.post("/orderdtl", (req, res) => {
+  for (let i = 0; i < req.body.selectedMenu.length; i++) {
+    const q = "INSERT INTO orderdtl( `customerName`, `menuName`) VALUES (?)";
+    const values = [req.body.name, req.body.selectedMenu[i]];
+
+    db.query(q, [values], (err, data) => {
+      if (err) return res.send(err);
+
+      return res.json(data);
+    });
+  }
 });
 
 app.listen(8800, () => {
