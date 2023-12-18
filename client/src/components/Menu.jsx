@@ -27,9 +27,13 @@ function Menu() {
     }
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
     handleAddMenu();
     handleAddRecipe();
+    setMenuName("");
+    setPrice(0);
+    setSelectedIngredient([]);
   }
 
   return (

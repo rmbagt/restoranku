@@ -2,7 +2,7 @@ import { Input } from "@nextui-org/react";
 import { useState } from "react";
 import axios from "axios";
 import IngredientTable from "./IngredientTable";
-import { ingredients } from "../data/IngredientsData";
+import { ingredients } from "../data/ingredientsData";
 
 function Ingredients() {
   const [ingredientName, setIngredientName] = useState("");

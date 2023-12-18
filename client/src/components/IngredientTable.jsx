@@ -7,7 +7,7 @@ import {
   TableCell,
   getKeyValue,
 } from "@nextui-org/react";
-import { ingredients, columns } from "../data/IngredientsData";
+import { ingredients, columns } from "../data/ingredientsData";
 
 function IngredientTable() {
   return (
