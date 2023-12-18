@@ -21,7 +21,8 @@ function Ingredients() {
     }
   }
 
-  async function handleAddIngredients() {
+  async function handleAddIngredients(e) {
+    e.preventDefault();
     const data = { name: ingredientName, stock: stock };
 
     if (bool === 0) {
@@ -40,6 +41,9 @@ function Ingredients() {
         console.log(err);
       }
     }
+
+    setIngredientName("");
+    setStock(0);
   }
 
   return (

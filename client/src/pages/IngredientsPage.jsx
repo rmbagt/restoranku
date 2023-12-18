@@ -5,7 +5,7 @@ function IngredientsPage({ isExpanded, setIsExpanded }) {
   return (
     <div className="flex">
       <Sidebar
-        pageIndex={6}
+        pageIndex={5}
         isExpanded={isExpanded}
         setIsExpanded={setIsExpanded}
       />

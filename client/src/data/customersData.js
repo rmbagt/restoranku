@@ -1,13 +1,6 @@
 import axios from "axios";
-let customers;
 
-try {
-  const raw = await axios.get("http://localhost:8800/customers");
-  customers = raw.data;
-
-} catch (err) {
-  console.log(err);
-}
+let customers = [];
 
 const columns = [
   {
@@ -19,5 +12,14 @@ const columns = [
     label: "NAME",
   },
 ];
+
+try {
+  const raw = await axios.get("http://localhost:8800/customers");
+  customers = raw.data;
+
+} catch (err) {
+  console.log(err);
+}
+
 
 export { customers, columns };

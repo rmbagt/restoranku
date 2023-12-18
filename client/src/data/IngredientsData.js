@@ -1,13 +1,6 @@
 import axios from "axios";
-let ingredients;
 
-try {
-  const raw = await axios.get("http://localhost:8800/ingredients");
-  ingredients = raw.data;
-
-} catch (err) {
-  console.log(err);
-}
+let ingredients = [];
 
 const columns = [
   {
@@ -23,5 +16,13 @@ const columns = [
     label: "STOCK",
   }
 ];
+
+try {
+  const raw = await axios.get("http://localhost:8800/ingredients");
+  ingredients = raw.data;
+
+} catch (err) {
+  console.log(err);
+}
 
 export { ingredients, columns };

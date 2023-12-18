@@ -29,8 +29,10 @@ function Menu() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
     handleAddMenu();
     handleAddRecipe();
+
     setMenuName("");
     setPrice(0);
     setSelectedIngredient([]);

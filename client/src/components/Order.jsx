@@ -1,7 +1,8 @@
 import { useState } from "react";
 import MenuTable from "./MenuTable";
-import { Input, menu } from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 import axios from "axios";
+import WaiterList from "./WaiterList";
 
 function Order() {
   const [customerName, setCustomerName] = useState("");
@@ -35,8 +36,10 @@ function Order() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
     handleCreateOrder();
     handleAddOrderDtl();
+
     setCustomerName("");
     setPrice(0);
     setTableNumber(0);
@@ -82,6 +85,11 @@ function Order() {
           </div>
 
           <MenuTable setSelectedIngredient={setSelectedMenu} />
+
+          <div>
+            <h3 className="py-4 text-lg">Waiter</h3>
+            <WaiterList />
+          </div>
 
           <div className="flex justify-center">
             <button className="w-fit rounded-lg text-base font-semibold text-white bg-blue-600 hover:bg-blue-500 p-2">
