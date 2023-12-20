@@ -2,15 +2,19 @@ import express from "express";
 import mysql from "mysql";
 import cors from "cors";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 const app = express();
+const port = process.env.PORT || 8800;
 app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "aldo",
-  password: "aldo",
-  database: "restoranku",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 app.get("/", (req, res) => {
@@ -154,6 +158,6 @@ app.post("/orderdtl", (req, res) => {
   }
 });
 
-app.listen(8800, () => {
-  console.log("Server running on port 8800")
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}/`)
 });
