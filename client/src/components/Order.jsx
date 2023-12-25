@@ -6,8 +6,8 @@ import WaiterList from "./WaiterList";
 
 function Order() {
   const [customerName, setCustomerName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [tableNumber, setTableNumber] = useState(0);
+  const [price, setPrice] = useState();
+  const [tableNumber, setTableNumber] = useState();
   const [selectedMenu, setSelectedMenu] = useState([]);
 
   async function handleCreateOrder() {
@@ -15,7 +15,6 @@ function Order() {
       name: customerName,
       price,
       tableNumber,
-      selectedMenu,
     };
 
     try {
@@ -34,16 +33,11 @@ function Order() {
     }
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
+  function handleSubmit() {
     handleCreateOrder();
-    handleAddOrderDtl();
-
-    setCustomerName("");
-    setPrice(0);
-    setTableNumber(0);
-    setSelectedMenu([]);
+    setTimeout(() => {
+      handleAddOrderDtl();
+    }, 1000);
   }
 
   return (
@@ -66,7 +60,7 @@ function Order() {
               label="Table number"
               placeholder="0"
               labelPlacement="inside"
-              value={tableNumber}
+              value={tableNumber || ""}
               onChange={(e) => setTableNumber(e.target.value)}
             />
             <Input
@@ -79,7 +73,7 @@ function Order() {
                   <span className="text-default-400 text-small">Rp</span>
                 </div>
               }
-              value={price}
+              value={price || ""}
               onChange={(e) => setPrice(e.target.value)}
             />
           </div>

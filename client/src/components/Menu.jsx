@@ -5,11 +5,11 @@ import axios from "axios";
 
 function Menu() {
   const [menuName, setMenuName] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState();
   const [selectedIngredient, setSelectedIngredient] = useState([]);
 
   async function handleAddMenu() {
-    const data = { name: menuName, price, selectedIngredient };
+    const data = { name: menuName, price };
 
     try {
       await axios.post("http://localhost:8800/menus", data);
@@ -19,7 +19,7 @@ function Menu() {
   }
 
   async function handleAddRecipe() {
-    const data2 = { name: menuName, price, selectedIngredient };
+    const data2 = { name: menuName, selectedIngredient };
     try {
       await axios.post("http://localhost:8800/recipe", data2);
     } catch (err) {
@@ -27,15 +27,11 @@ function Menu() {
     }
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
+  function handleSubmit() {
     handleAddMenu();
-    handleAddRecipe();
-
-    setMenuName("");
-    setPrice(0);
-    setSelectedIngredient([]);
+    setTimeout(() => {
+      handleAddRecipe();
+    }, 1000);
   }
 
   return (
@@ -63,7 +59,7 @@ function Menu() {
                   <span className="text-default-400 text-small">Rp</span>
                 </div>
               }
-              value={price}
+              value={price || ""}
               onChange={(e) => setPrice(e.target.value)}
             />
           </div>

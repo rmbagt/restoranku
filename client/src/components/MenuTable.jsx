@@ -17,7 +17,7 @@ function MenuTable({ setSelectedIngredient }) {
   return (
     <div className="flex flex-col gap-3">
       <h2>Menu List</h2>
-      <ul>
+      <ul className="h-56 overflow-y-auto">
         {menus.map((menu) => (
           <li key={menu.id} className="flex justify-between w-56">
             <input

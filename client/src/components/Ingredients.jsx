@@ -6,7 +6,7 @@ import { ingredients } from "../data/ingredientsData";
 
 function Ingredients() {
   const [ingredientName, setIngredientName] = useState("");
-  const [stock, setStock] = useState(0);
+  const [stock, setStock] = useState();
 
   const ingredientNameArray = ingredients.map((ingredient) => {
     ingredient.name;
@@ -21,8 +21,7 @@ function Ingredients() {
     }
   }
 
-  async function handleAddIngredients(e) {
-    e.preventDefault();
+  async function handleAddIngredients() {
     const data = { name: ingredientName, stock: stock };
 
     if (bool === 0) {
@@ -41,9 +40,6 @@ function Ingredients() {
         console.log(err);
       }
     }
-
-    setIngredientName("");
-    setStock(0);
   }
 
   return (
@@ -66,7 +62,7 @@ function Ingredients() {
               label="Stock"
               placeholder="0"
               labelPlacement="inside"
-              value={stock}
+              value={stock || ""}
               onChange={(e) => setStock(e.target.value)}
             />
           </div>

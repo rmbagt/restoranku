@@ -17,9 +17,9 @@ function MenuTableDetail({ setSelectedIngredient }) {
   return (
     <div className="flex flex-col gap-3">
       <h2>Ingredients List</h2>
-      <ul>
+      <ul className="h-56 overflow-y-auto">
         {ingredients.map((ingredient) => (
-          <li key={ingredient.id}>
+          <li key={ingredient.id} className="flex gap-6">
             <input
               type="checkbox"
               checked={checkedNames.includes(ingredient.name)}
@@ -27,7 +27,7 @@ function MenuTableDetail({ setSelectedIngredient }) {
                 handleCheckboxChange(ingredient.name);
               }}
             />
-            {ingredient.name}
+            <span>{ingredient.name}</span>
           </li>
         ))}
       </ul>

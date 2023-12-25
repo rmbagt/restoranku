@@ -6,9 +6,7 @@ import axios from "axios";
 function Customer() {
   const [customerName, setCustomerName] = useState("");
 
-  async function handleAddCustomer(e) {
-    e.preventDefault();
-
+  async function handleAddCustomer() {
     const data = { name: customerName };
 
     try {
@@ -16,8 +14,6 @@ function Customer() {
     } catch (err) {
       console.log(err);
     }
-
-    setCustomerName("");
   }
 
   return (
