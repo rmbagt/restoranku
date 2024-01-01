@@ -9,7 +9,6 @@ import { waiters } from "../data/waitersData";
 
 function Order() {
   const [customerName, setCustomerName] = useState("");
-  const [price, setPrice] = useState();
   const [tableNumber, setTableNumber] = useState();
   const [selectedMenu, setSelectedMenu] = useState([]);
   const [selectedWaiter, setSelectedWaiter] = useState(
@@ -23,7 +22,7 @@ function Order() {
   async function handleCreateOrder() {
     const data = {
       name: customerName,
-      price,
+      price: totalPrice,
       tableNumber,
     };
 
@@ -50,7 +49,6 @@ function Order() {
     handleAddOrderDtl();
 
     setCustomerName("");
-    setPrice("");
     setTableNumber("");
     setSelectedMenu([]);
     setSelectedWaiter(new Set(["Select waiter"]));
@@ -82,7 +80,7 @@ function Order() {
             <Input
               type="number"
               label="Price"
-              placeholder="0.00"
+              placeholder="0"
               labelPlacement="inside"
               startContent={
                 <div className="pointer-events-none flex items-center">
@@ -91,7 +89,6 @@ function Order() {
               }
               value={totalPrice}
               disabled={true}
-              onChange={(e) => setPrice(e.target.value)}
             />
           </div>
 
