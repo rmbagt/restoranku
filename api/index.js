@@ -115,7 +115,7 @@ app.post("/menus", (req, res) => {
   db.query(q, [values], (err, data) => {
     if (err) return res.send(err);
 
-    return res.json(data);
+    return
   });
 });
 
@@ -127,7 +127,7 @@ app.post("/recipe", (req, res) => {
     db.query(q, [values], (err, data) => {
       if (err) return res.send(err);
 
-      return res.json(data);
+      return
     });
   }
 
@@ -141,7 +141,7 @@ app.post("/orders", (req, res) => {
   db.query(q, [values], (err, data) => {
     if (err) return res.send(err);
 
-    return res.json(data);
+    return
   });
 });
 
@@ -153,7 +153,7 @@ app.post("/orderdtl", (req, res) => {
     db.query(q, [values], (err, data) => {
       if (err) return res.send(err);
 
-      return res.json(data);
+      return
     });
   }
 });

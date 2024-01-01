@@ -1,14 +1,24 @@
 import { useState } from "react";
-import MenuTable from "./MenuTable";
-import { Input } from "@nextui-org/react";
 import axios from "axios";
+import { Input } from "@nextui-org/react";
+
+import MenuTable from "./MenuTable";
 import WaiterList from "./WaiterList";
+import { menus } from "../data/menusData";
+import { waiters } from "../data/waitersData";
 
 function Order() {
   const [customerName, setCustomerName] = useState("");
   const [price, setPrice] = useState();
   const [tableNumber, setTableNumber] = useState();
   const [selectedMenu, setSelectedMenu] = useState([]);
+  const [selectedWaiter, setSelectedWaiter] = useState(
+    new Set(["Select waiter"])
+  );
+
+  const totalPrice = menus
+    .filter((menu) => selectedMenu.includes(menu.name))
+    .reduce((acc, curr) => acc + curr.price, 0);
 
   async function handleCreateOrder() {
     const data = {
@@ -25,19 +35,25 @@ function Order() {
   }
 
   async function handleAddOrderDtl() {
-    const data2 = { name: customerName, selectedMenu };
+    const data = { name: customerName, selectedMenu };
     try {
-      await axios.post("http://localhost:8800/orderdtl", data2);
+      await axios.post("http://localhost:8800/orderdtl", data);
     } catch (err) {
       console.log(err);
     }
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
+
     handleCreateOrder();
-    setTimeout(() => {
-      handleAddOrderDtl();
-    }, 1000);
+    handleAddOrderDtl();
+
+    setCustomerName("");
+    setPrice("");
+    setTableNumber("");
+    setSelectedMenu([]);
+    setSelectedWaiter(new Set(["Select waiter"]));
   }
 
   return (
@@ -73,16 +89,21 @@ function Order() {
                   <span className="text-default-400 text-small">Rp</span>
                 </div>
               }
-              value={price || ""}
+              value={totalPrice}
+              disabled={true}
               onChange={(e) => setPrice(e.target.value)}
             />
           </div>
 
-          <MenuTable setSelectedIngredient={setSelectedMenu} />
+          <MenuTable setSelectedMenu={setSelectedMenu} menus={menus} />
 
           <div>
             <h3 className="py-4 text-lg">Waiter</h3>
-            <WaiterList />
+            <WaiterList
+              waiters={waiters}
+              selectedWaiter={selectedWaiter}
+              setSelectedWaiter={setSelectedWaiter}
+            />
           </div>
 
           <div className="flex justify-center">

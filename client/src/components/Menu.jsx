@@ -1,7 +1,9 @@
 import { useState } from "react";
-import MenuTableDetail from "./MenuTableDetail";
-import { Input } from "@nextui-org/react";
 import axios from "axios";
+import { Input } from "@nextui-org/react";
+
+import MenuTableDetail from "./MenuTableDetail";
+import { ingredients } from "../data/ingredientsData";
 
 function Menu() {
   const [menuName, setMenuName] = useState("");
@@ -19,19 +21,23 @@ function Menu() {
   }
 
   async function handleAddRecipe() {
-    const data2 = { name: menuName, selectedIngredient };
+    const data = { name: menuName, selectedIngredient };
     try {
-      await axios.post("http://localhost:8800/recipe", data2);
+      await axios.post("http://localhost:8800/recipe", data);
     } catch (err) {
       console.log(err);
     }
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
+
     handleAddMenu();
-    setTimeout(() => {
-      handleAddRecipe();
-    }, 1000);
+    handleAddRecipe();
+
+    setMenuName("");
+    setPrice("");
+    setSelectedIngredient([]);
   }
 
   return (
@@ -64,7 +70,10 @@ function Menu() {
             />
           </div>
 
-          <MenuTableDetail setSelectedIngredient={setSelectedIngredient} />
+          <MenuTableDetail
+            setSelectedIngredient={setSelectedIngredient}
+            ingredients={ingredients}
+          />
 
           <div className="flex justify-center">
             <button className="w-20 rounded-lg text-base font-semibold text-white bg-blue-600 hover:bg-blue-500 p-2">

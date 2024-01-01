@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   Dropdown,
   DropdownTrigger,
@@ -5,15 +6,11 @@ import {
   DropdownItem,
   Button,
 } from "@nextui-org/react";
-import { useMemo, useState } from "react";
-import { waiters } from "../data/waitersData";
 
-function WaiterList() {
-  const [selectedKeys, setSelectedKeys] = useState(new Set(["Select waiter"]));
-
+function WaiterList({ waiters, selectedWaiter, setSelectedWaiter }) {
   const selectedValue = useMemo(
-    () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
-    [selectedKeys]
+    () => Array.from(selectedWaiter).join(", ").replaceAll("_", " "),
+    [selectedWaiter]
   );
 
   return (
@@ -28,8 +25,8 @@ function WaiterList() {
         variant="flat"
         disallowEmptySelection
         selectionMode="single"
-        selectedKeys={selectedKeys}
-        onSelectionChange={setSelectedKeys}
+        selectedKeys={selectedWaiter}
+        onSelectionChange={setSelectedWaiter}
       >
         {waiters.map((waiter) => (
           <DropdownItem key={waiter.name}>{waiter.name}</DropdownItem>

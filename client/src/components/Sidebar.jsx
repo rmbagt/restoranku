@@ -8,7 +8,6 @@ import {
   PersonStanding,
   Users,
   LayoutDashboard,
-  LibraryBig,
   BookOpenText,
   Soup,
 } from "lucide-react";
@@ -59,7 +58,7 @@ function Sidebar({ pageIndex, isExpanded, setIsExpanded }) {
 
   function handleNavigation(index, link) {
     setIsChosen(index);
-    navigate(link, { replace: true });
+    navigate(link);
   }
 
   return (

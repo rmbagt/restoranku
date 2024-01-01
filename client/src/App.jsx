@@ -14,7 +14,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<DashboardPage />} />
+        <Route index element={<DashboardPage />} />
         <Route
           path="/dashboard"
           element={
