@@ -12,7 +12,7 @@
 
 Restoranku is a powerful dashboard page designed to assist restaurant owners in efficiently monitoring and managing their operations. With its user-friendly interface and comprehensive features, Restoranku provides real-time insights into key aspects of restaurant management, such as sales performance, inventory tracking, and employee scheduling. By centralizing all essential information and tools in one place, Restoranku streamlines daily operations, enhances decision-making, and ultimately helps restaurant owners optimize their business performance. Especially for Small Medium Business, Restoranku is the perfect solution to simplify and streamline your restaurant management tasks.
 
-### Stack used in this app
+### Tools that used in this app
 
 - React JS
 - Vite
