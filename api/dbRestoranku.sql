@@ -29,18 +29,18 @@ CREATE TABLE menus(
 
 CREATE TABLE recipe (
 	idMenu VARCHAR(30),
-    idIngredient VARCHAR(30)
+  idIngredient VARCHAR(30)
 );
 
 CREATE TABLE orderdtl (
 	orderId INT,
-    menuName VARCHAR(30)
+  menuName VARCHAR(30)
 );
 
 CREATE TABLE orders(
 	id INT Primary Key auto_increment,
-    customerName VARCHAR(30),
+  customerName VARCHAR(30),
 	waiterName VARCHAR(30),
-    price INT,
-    tableNumber INT
+  price INT,
+  tableNumber INT
 );
