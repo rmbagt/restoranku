@@ -167,6 +167,15 @@ app.post("/orderdtl", (req, res) => {
   }
 });
 
+app.get("/history", (req, res) => {
+  const q = "SELECT * FROM orders";
+
+  db.query(q, (err, data) => {
+    if (err) return res.json(err);
+    res.json(data);
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}/`)
 });
