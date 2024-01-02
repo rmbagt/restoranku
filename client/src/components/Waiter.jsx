@@ -18,6 +18,7 @@ function Waiter() {
     }
 
     setWaiterName("");
+    alert("Waiter added!");
   }
 
   return (

@@ -45,6 +45,7 @@ function Ingredients() {
 
     setIngredientName("");
     setStock("");
+    alert("Ingredients updated!");
   }
 
   return (

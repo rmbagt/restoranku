@@ -54,6 +54,7 @@ function Order() {
     setSelectedMenu([]);
     setSelectedWaiter(["Select waiter"]);
     setSelectedCustomer(["Select customer"]);
+    alert("Order created!");
   }
 
   // console.log(selectedCustomer.currentKey, selectedWaiter.currentKey);

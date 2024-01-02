@@ -1,7 +1,8 @@
-import { Input } from "@nextui-org/react";
 import { useState } from "react";
-import CustomerTable from "./CustomerTable";
 import axios from "axios";
+import { Input } from "@nextui-org/react";
+
+import CustomerTable from "./CustomerTable";
 
 function Customer() {
   const [customerName, setCustomerName] = useState("");
@@ -18,6 +19,7 @@ function Customer() {
     }
 
     setCustomerName("");
+    alert("Customer added!");
   }
 
   return (

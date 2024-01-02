@@ -38,6 +38,7 @@ function Menu() {
     setMenuName("");
     setPrice("");
     setSelectedIngredient([]);
+    alert("Menu created!");
   }
 
   return (
