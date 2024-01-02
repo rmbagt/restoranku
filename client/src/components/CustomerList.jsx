@@ -16,7 +16,7 @@ function CustomerList({ customers, selectedCustomer, setSelectedCustomer }) {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Button variant="bordered" className="capitalize w-fit">
+        <Button variant="bordered" className="capitalize w-52">
           {selectedValue}
         </Button>
       </DropdownTrigger>

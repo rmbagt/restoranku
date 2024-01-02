@@ -3,6 +3,29 @@ import axios from "axios";
 let orders = [];
 let orderHistory = [];
 
+const columns = [
+  {
+    key: "id",
+    label: "ORDER ID",
+  },
+  {
+    key: "customerName",
+    label: "CUSTOMER NAME",
+  },
+  {
+    key: "waiterName",
+    label: "WAITER NAME",
+  },
+  {
+    key: "price",
+    label: "TOTAL PRICE",
+  },
+  {
+    key: "tableNumber",
+    label: "TABLE NUMBER",
+  },
+];
+
 try {
   const raw = await axios.get("http://localhost:8800/orders");
   orders = raw.data;
@@ -20,4 +43,4 @@ try {
   console.log(err);
 }
 
-export { orders, orderHistory };
+export { orders, orderHistory, columns };

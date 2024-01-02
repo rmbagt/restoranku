@@ -7,9 +7,7 @@ import CustomerTable from "./CustomerTable";
 function Customer() {
   const [customerName, setCustomerName] = useState("");
 
-  async function handleAddCustomer(e) {
-    e.preventDefault();
-
+  async function handleAddCustomer() {
     const data = { name: customerName };
 
     try {

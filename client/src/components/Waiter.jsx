@@ -6,9 +6,7 @@ import axios from "axios";
 function Waiter() {
   const [waiterName, setWaiterName] = useState("");
 
-  async function handleAddWaiter(e) {
-    e.preventDefault();
-
+  async function handleAddWaiter() {
     const data = { name: waiterName };
 
     try {

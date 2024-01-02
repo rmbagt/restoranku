@@ -21,9 +21,7 @@ function Ingredients() {
     }
   }
 
-  async function handleAddIngredients(e) {
-    e.preventDefault();
-
+  async function handleAddIngredients() {
     const data = { name: ingredientName, stock: stock };
 
     if (bool === 0) {

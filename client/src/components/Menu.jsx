@@ -29,9 +29,7 @@ function Menu() {
     }
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
+  function handleSubmit() {
     handleAddMenu();
     handleAddRecipe();
 
