@@ -4,16 +4,17 @@ import { Input } from "@nextui-org/react";
 
 import MenuTable from "./MenuTable";
 import WaiterList from "./WaiterList";
+import CustomerList from "./CustomerList";
 import { menus } from "../data/menusData";
+import { orders } from "../data/ordersData";
 import { waiters } from "../data/waitersData";
+import { customers } from "../data/customersData";
 
 function Order() {
-  const [customerName, setCustomerName] = useState("");
   const [tableNumber, setTableNumber] = useState();
   const [selectedMenu, setSelectedMenu] = useState([]);
-  const [selectedWaiter, setSelectedWaiter] = useState(
-    new Set(["Select waiter"])
-  );
+  const [selectedWaiter, setSelectedWaiter] = useState(["Select waiter"]);
+  const [selectedCustomer, setSelectedCustomer] = useState(["Select customer"]);
 
   const totalPrice = menus
     .filter((menu) => selectedMenu.includes(menu.name))
@@ -21,7 +22,8 @@ function Order() {
 
   async function handleCreateOrder() {
     const data = {
-      name: customerName,
+      customerName: selectedCustomer.currentKey,
+      waiterName: selectedWaiter.currentKey,
       price: totalPrice,
       tableNumber,
     };
@@ -34,7 +36,7 @@ function Order() {
   }
 
   async function handleAddOrderDtl() {
-    const data = { name: customerName, selectedMenu };
+    const data = { orderId: orders[0]["COUNT(id)"] + 1, selectedMenu };
     try {
       await axios.post("http://localhost:8800/orderdtl", data);
     } catch (err) {
@@ -48,11 +50,14 @@ function Order() {
     handleCreateOrder();
     handleAddOrderDtl();
 
-    setCustomerName("");
     setTableNumber("");
     setSelectedMenu([]);
-    setSelectedWaiter(new Set(["Select waiter"]));
+    setSelectedWaiter(["Select waiter"]);
+    setSelectedCustomer(["Select customer"]);
   }
+
+  // console.log(selectedCustomer.currentKey, selectedWaiter.currentKey);
+  // console.log(orders[0]["COUNT(id)"]);
 
   return (
     <div className="flex flex-col py-10 px-16 h-screen overflow-y-auto w-full gap-2">
@@ -60,14 +65,11 @@ function Order() {
       <div>
         <h3 className="py-4 text-lg">Create Order</h3>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
-            <Input
-              type="text"
-              label="Customer name"
-              placeholder="John"
-              labelPlacement="inside"
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
+          <div className="flex w-fit flex-col md:flex-nowrap mb-6 md:mb-0 gap-4">
+            <CustomerList
+              customers={customers}
+              selectedCustomer={selectedCustomer}
+              setSelectedCustomer={setSelectedCustomer}
             />
             <Input
               type="number"

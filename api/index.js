@@ -133,10 +133,19 @@ app.post("/recipe", (req, res) => {
 
 });
 
-app.post("/orders", (req, res) => {
-  const q = "INSERT INTO orders(`name`, `price`, `tableNumber`) VALUES (?)";
+app.get("/orders", (req, res) => {
+  const q = "SELECT COUNT(id) FROM orders";
 
-  const values = [req.body.name, req.body.price, req.body.tableNumber];
+  db.query(q, (err, data) => {
+    if (err) return res.json(err);
+    res.json(data);
+  });
+});
+
+app.post("/orders", (req, res) => {
+  const q = "INSERT INTO orders(`customerName`, `waiterName`, `price`, `tableNumber`) VALUES (?)";
+
+  const values = [req.body.customerName, req.body.waiterName, req.body.price, req.body.tableNumber];
 
   db.query(q, [values], (err, data) => {
     if (err) return res.send(err);
@@ -147,8 +156,8 @@ app.post("/orders", (req, res) => {
 
 app.post("/orderdtl", (req, res) => {
   for (let i = 0; i < req.body.selectedMenu.length; i++) {
-    const q = "INSERT INTO orderdtl( `customerName`, `menuName`) VALUES (?)";
-    const values = [req.body.name, req.body.selectedMenu[i]];
+    const q = "INSERT INTO orderdtl( `orderId`, `menuName`) VALUES (?)";
+    const values = [req.body.orderId, req.body.selectedMenu[i]];
 
     db.query(q, [values], (err, data) => {
       if (err) return res.send(err);
