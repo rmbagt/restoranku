@@ -53,15 +53,17 @@ Restoranku is a powerful dashboard page designed to assist restaurant owners in 
   DB_PASSWORD=[password]
 ```
 
-7. Open new terminal in api directory and start the server
+7. Open new terminal in api directory, install the dependencies and start the server
 
 ```bash
+  npm i
   npm start
 ```
 
-8. Open new terminal in client directory and start the app
+8. Open new terminal in client directory, install the dependencies and start the app
 
 ```bash
+  npm i
   npm run dev
 ```
 
