@@ -20,8 +20,11 @@ Restoranku is a powerful dashboard page designed to assist restaurant owners in 
 - MySQL Database
 - Tailwind CSS
 - NEXT UI
+- Framer Motion
 
 ## Installation
+
+**NOTES**: Make sure you have installed NPM and MySQL on your machine.
 
 1. Clone this repository
 
@@ -38,7 +41,7 @@ Restoranku is a powerful dashboard page designed to assist restaurant owners in 
 
 3. Copy all the SQL code in `api/dbRestoranku.sql`
 
-4. Open your terminal, make sure that MySQL was installed in your PC, then login with your user account
+4. Open your terminal and login with your user account
 
 ```bash
   mysql -u [username] -p
