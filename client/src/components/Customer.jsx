@@ -1,23 +1,46 @@
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { Input } from "@nextui-org/react";
-
+import {
+  useAddCustomer,
+  useDeleteCustomer,
+  useGetCustomers,
+  useUpdateCustomer,
+} from "../data/customersData";
 import CustomerTable from "./CustomerTable";
 
 function Customer() {
+  const [customers, setCustomers] = useState([]);
   const [customerName, setCustomerName] = useState("");
 
-  async function handleAddCustomer() {
+  const customerQueries = useGetCustomers();
+  const addCustomerMutation = useAddCustomer();
+  const updateCustomerMutation = useUpdateCustomer();
+  const deleteCustomerMutation = useDeleteCustomer();
+
+  useEffect(() => {
+    if (customerQueries.isSuccess) {
+      setCustomers(customerQueries.data);
+    }
+  }, [customerQueries.isSuccess, customerQueries.data]);
+
+  function handleAddCustomer(e) {
+    e.preventDefault();
     const data = { name: customerName };
 
-    try {
-      await axios.post("http://localhost:8800/customers", data);
-    } catch (err) {
-      console.log(err);
-    }
+    addCustomerMutation.mutate(data);
 
     setCustomerName("");
-    alert("Customer added!");
+    alert("Customer added successfully");
+  }
+
+  function handleUpdateCustomer(id, newName) {
+    const data = { name: newName };
+
+    updateCustomerMutation.mutate({ id, ...data });
+  }
+
+  function handleDeleteCustomer(id) {
+    deleteCustomerMutation.mutate(id);
   }
 
   return (
@@ -43,7 +66,11 @@ function Customer() {
       </div>
       <div>
         <h3 className="py-4 text-lg">Customer List</h3>
-        <CustomerTable />
+        <CustomerTable
+          customers={customers}
+          handleDeleteCustomer={handleDeleteCustomer}
+          handleUpdateCustomer={handleUpdateCustomer}
+        />
       </div>
     </div>
   );

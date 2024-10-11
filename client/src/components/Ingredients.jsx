@@ -1,49 +1,48 @@
 import { Input } from "@nextui-org/react";
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import IngredientTable from "./IngredientTable";
-import { ingredients } from "../data/ingredientsData";
+import {
+  useAddIngredient,
+  useDeleteIngredient,
+  useGetIngredients,
+  useUpdateIngredient,
+} from "../data/ingredientsData";
 
 function Ingredients() {
   const [ingredientName, setIngredientName] = useState("");
+  const [ingredients, setIngredients] = useState([]);
   const [stock, setStock] = useState();
 
-  const ingredientNameArray = ingredients.map((ingredient) => {
-    ingredient.name;
-  });
+  const ingredientQueries = useGetIngredients();
+  const addIngredientMutation = useAddIngredient();
+  const updateIngredientMutation = useUpdateIngredient();
+  const deleteIngredientMutation = useDeleteIngredient();
 
-  let bool = 0;
-  let id = 0;
-  for (let i = 0; i < ingredientNameArray.length; i++) {
-    if (ingredients[i].name === ingredientName) {
-      id = i + 1;
-      bool = 1;
+  useEffect(() => {
+    if (ingredientQueries.isSuccess) {
+      setIngredients(ingredientQueries.data);
     }
-  }
+  }, [ingredientQueries.isSuccess, ingredientQueries.data]);
 
-  async function handleAddIngredients() {
+  function handleAddIngredients(e) {
+    e.preventDefault();
     const data = { name: ingredientName, stock: stock };
 
-    if (bool === 0) {
-      console.log("not in array");
-      try {
-        await axios.post("http://localhost:8800/ingredients", data);
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      console.log("in array");
-      console.log(id);
-      try {
-        await axios.put(`http://localhost:8800/ingredients/${id}`, data);
-      } catch (err) {
-        console.log(err);
-      }
-    }
+    addIngredientMutation.mutate(data);
 
     setIngredientName("");
     setStock("");
-    alert("Ingredients updated!");
+    alert("Ingredient added successfully");
+  }
+
+  function handleUpdateIngredients(id, newStock) {
+    const data = { stock: newStock };
+
+    updateIngredientMutation.mutate({ id, ...data });
+  }
+
+  function handleDeleteIngredients(id) {
+    deleteIngredientMutation.mutate(id);
   }
 
   return (
@@ -71,13 +70,17 @@ function Ingredients() {
             />
           </div>
           <button className="w-20 rounded-lg text-base font-semibold text-white bg-blue-600 hover:bg-blue-500 p-2">
-            Update
+            Add
           </button>
         </form>
       </div>
       <div>
         <h3 className="py-4 text-lg">Ingredients List</h3>
-        <IngredientTable />
+        <IngredientTable
+          handleDeleteIngredients={handleDeleteIngredients}
+          handleUpdateIngredients={handleUpdateIngredients}
+          ingredients={ingredients}
+        />
       </div>
     </div>
   );

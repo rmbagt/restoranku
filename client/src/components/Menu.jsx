@@ -1,42 +1,46 @@
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { Input } from "@nextui-org/react";
 
 import MenuTableDetail from "./MenuTableDetail";
-import { ingredients } from "../data/ingredientsData";
+import { useGetIngredients } from "../data/ingredientsData";
+import { useAddMenu, useAddRecipe } from "../data/menusData";
 
 function Menu() {
   const [menuName, setMenuName] = useState("");
   const [price, setPrice] = useState();
   const [selectedIngredient, setSelectedIngredient] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
 
-  async function handleAddMenu() {
+  const ingredientQueries = useGetIngredients();
+  const addMenuMutation = useAddMenu();
+  const addRecipeMutation = useAddRecipe();
+
+  useEffect(() => {
+    if (ingredientQueries.isSuccess) {
+      setIngredients(ingredientQueries.data);
+    }
+  }, [ingredientQueries.isSuccess, ingredientQueries.data]);
+
+  function handleAddMenu() {
     const data = { name: menuName, price };
 
-    try {
-      await axios.post("http://localhost:8800/menus", data);
-    } catch (err) {
-      console.log(err);
-    }
+    addMenuMutation.mutate(data);
   }
 
-  async function handleAddRecipe() {
+  function handleAddRecipe() {
     const data = { name: menuName, selectedIngredient };
-    try {
-      await axios.post("http://localhost:8800/recipe", data);
-    } catch (err) {
-      console.log(err);
-    }
+
+    addRecipeMutation.mutate(data);
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
     handleAddMenu();
     handleAddRecipe();
 
     setMenuName("");
     setPrice("");
-    setSelectedIngredient([]);
-    alert("Menu created!");
+    alert("Menu added successfully");
   }
 
   return (

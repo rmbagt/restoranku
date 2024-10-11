@@ -1,7 +1,6 @@
-import axios from "axios";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { api } from "../services/api";
 
-let orders = [];
-let orderHistory = [];
 
 const columns = [
   {
@@ -24,23 +23,108 @@ const columns = [
     key: "tableNumber",
     label: "TABLE NUMBER",
   },
+  {
+    key: "actions",
+    label: "ACTIONS",
+  },
 ];
 
-try {
-  const raw = await axios.get("http://localhost:8800/orders");
-  orders = raw.data;
 
-} catch (err) {
-  console.log(err);
+export const useGetOrders = () => {
+  return useQuery({
+    queryKey: ["getOrders"],
+    queryFn: async () => {
+      const { data } = await api.get("/orders");
+
+      if (data) {
+        return data;
+      }
+      return [];
+    },
+  });
+};
+
+export const useAddOrder = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data) => {
+      const response = await api.post("/orders", data);
+      return response.data;
+    },
+    onSettled: async (_, error) => {
+      if (error) {
+        console.error(error);
+      } else {
+        await queryClient.invalidateQueries({
+          queryKey: ["getOrders"],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: ["getHistories"],
+        });
+      }
+    },
+  });
 }
 
+export const useDeleteOrder = () => {
+  const queryClient = useQueryClient();
 
-try {
-  const raw = await axios.get("http://localhost:8800/history");
-  orderHistory = raw.data;
-
-} catch (err) {
-  console.log(err);
+  return useMutation({
+    mutationFn: async (id) => {
+      const response = await api.delete(`/orders/${id}`);
+      return response.data;
+    },
+    onSettled: async (_, error) => {
+      if (error) {
+        console.error(error);
+      } else {
+        await queryClient.invalidateQueries({
+          queryKey: ["getOrders"],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: ["getHistories"],
+        });
+      }
+    },
+  });
 }
 
-export { orders, orderHistory, columns };
+export const useGetHistories = () => {
+  return useQuery({
+    queryKey: ["getHistories"],
+    queryFn: async () => {
+      const { data } = await api.get("/history");
+
+      if (data) {
+        return data;
+      }
+      return [];
+    },
+  });
+};
+
+export const useAddOrderDtl = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data) => {
+      const response = await api.post("/orderdtl", data);
+      return response.data;
+    },
+    onSettled: async (_, error) => {
+      if (error) {
+        console.error(error);
+      } else {
+        await queryClient.invalidateQueries({
+          queryKey: ["getOrders"],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: ["getHistories"],
+        });
+      }
+    },
+  });
+}
+
+export { columns };

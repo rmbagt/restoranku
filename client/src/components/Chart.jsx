@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -20,46 +21,83 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
+const options = {
   responsive: true,
   tension: 0.4,
   plugins: {
     legend: {
       position: "top",
     },
+    title: {
+      display: true,
+      text: "Monthly Revenue",
+    },
+  },
+  scales: {
+    y: {
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: "Revenue",
+      },
+      ticks: {
+        callback: function (value) {
+          return "Rp" + value.toLocaleString("id-ID");
+        },
+      },
+    },
+    x: {
+      title: {
+        display: true,
+        text: "Month",
+      },
+    },
   },
 };
 
-const labels = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sept",
-  "Oct",
-  "Nov",
-  "Dec",
-];
+const MonthlyRevenueChart = ({ historyQueries = [] }) => {
+  const monthlyData = useMemo(() => {
+    const monthlyRevenue = Array(12).fill(0);
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Revenue",
-      data: [
-        15000000, 10000000, 14000000, 11000000, 16000000, 12000000, 8000000,
-        14000000, 11000000, 12000000, 23000000, 12000000,
-      ],
-      borderColor: "rgb(71 85 105)",
-      backgroundColor: "rgb(71 85 105)",
-    },
-  ],
+    if (Array.isArray(historyQueries)) {
+      historyQueries.forEach((query) => {
+        if (query && query.created_at && query.price) {
+          const date = new Date(query.created_at);
+          const month = date.getMonth();
+          monthlyRevenue[month] += query.price;
+        }
+      });
+    }
+
+    return monthlyRevenue;
+  }, [historyQueries]);
+
+  const chartData = {
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    datasets: [
+      {
+        label: "Revenue",
+        data: monthlyData,
+        borderColor: "rgb(71, 85, 105)",
+        backgroundColor: "rgba(71, 85, 105, 0.5)",
+      },
+    ],
+  };
+
+  return <Line options={options} data={chartData} />;
 };
 
-export default function App() {
-  return <Line options={options} data={data} />;
-}
+export default MonthlyRevenueChart;

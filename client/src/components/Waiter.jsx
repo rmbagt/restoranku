@@ -1,22 +1,47 @@
 import { Input } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import WaiterTable from "./WaiterTable";
 import axios from "axios";
+import {
+  useAddWaiter,
+  useDeleteWaiter,
+  useGetWaiters,
+  useUpdateWaiter,
+} from "../data/waitersData";
 
 function Waiter() {
   const [waiterName, setWaiterName] = useState("");
+  const [waiters, setWaiters] = useState([]);
 
-  async function handleAddWaiter() {
+  const waiterQueries = useGetWaiters();
+  const addWaiterMutation = useAddWaiter();
+  const updateWaiterMutation = useUpdateWaiter();
+  const deleteWaiterMutation = useDeleteWaiter();
+
+  useEffect(() => {
+    if (waiterQueries.isSuccess) {
+      setWaiters(waiterQueries.data);
+    }
+  }, [waiterQueries.isSuccess, waiterQueries.data]);
+
+  function handleAddWaiter(e) {
+    e.preventDefault();
     const data = { name: waiterName };
 
-    try {
-      await axios.post("http://localhost:8800/waiters", data);
-    } catch (err) {
-      console.log(err);
-    }
+    addWaiterMutation.mutate(data);
 
     setWaiterName("");
-    alert("Waiter added!");
+    alert("Waiter added successfully");
+  }
+
+  function handleUpdateWaiter(id, newName) {
+    const data = { name: newName };
+
+    updateWaiterMutation.mutate({ id, ...data });
+  }
+
+  function handleDeleteWaiter(id) {
+    deleteWaiterMutation.mutate(id);
   }
 
   return (
@@ -42,7 +67,11 @@ function Waiter() {
       </div>
       <div>
         <h3 className="py-4 text-lg">Waiter List</h3>
-        <WaiterTable />
+        <WaiterTable
+          waiters={waiters}
+          handleDeleteWaiter={handleDeleteWaiter}
+          handleUpdateWaiter={handleUpdateWaiter}
+        />
       </div>
     </div>
   );

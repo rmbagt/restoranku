@@ -1,26 +1,72 @@
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { Input } from "@nextui-org/react";
 
 import MenuTable from "./MenuTable";
 import WaiterList from "./WaiterList";
 import CustomerList from "./CustomerList";
-import { menus } from "../data/menusData";
-import { orders } from "../data/ordersData";
-import { waiters } from "../data/waitersData";
-import { customers } from "../data/customersData";
+
+import { useDeleteMenu, useGetMenus, useUpdateMenu } from "../data/menusData";
+import { useGetCustomers } from "../data/customersData";
+import { useGetWaiters } from "../data/waitersData";
+import { useAddOrder, useAddOrderDtl, useGetOrders } from "../data/ordersData";
 
 function Order() {
   const [tableNumber, setTableNumber] = useState();
   const [selectedMenu, setSelectedMenu] = useState([]);
   const [selectedWaiter, setSelectedWaiter] = useState(["Select waiter"]);
   const [selectedCustomer, setSelectedCustomer] = useState(["Select customer"]);
+  const [menus, setMenus] = useState([]);
+  const [customers, setCustomers] = useState([]);
+  const [waiters, setWaiters] = useState([]);
+  const [orders, setOrders] = useState([]);
+
+  const menuQueries = useGetMenus();
+  const customerQueries = useGetCustomers();
+  const waiterQueries = useGetWaiters();
+  const orderQueries = useGetOrders();
+  const updateMenuMutation = useUpdateMenu();
+  const deleteMenuMutation = useDeleteMenu();
+  const addOrderMutation = useAddOrder();
+  const addOrderDtlMutation = useAddOrderDtl();
+
+  useEffect(() => {
+    if (
+      menuQueries.isSuccess &&
+      customerQueries.isSuccess &&
+      waiterQueries.isSuccess &&
+      orderQueries.isSuccess
+    ) {
+      setMenus(menuQueries.data);
+      setCustomers(customerQueries.data);
+      setWaiters(waiterQueries.data);
+      setOrders(orderQueries.data);
+    }
+  }, [
+    menuQueries.isSuccess,
+    menuQueries.data,
+    customerQueries.isSuccess,
+    customerQueries.data,
+    waiterQueries.isSuccess,
+    waiterQueries.data,
+    orderQueries.isSuccess,
+    orderQueries.data,
+  ]);
 
   const totalPrice = menus
-    .filter((menu) => selectedMenu.includes(menu.name))
+    .filter((menu) => selectedMenu.includes(menu.id))
     .reduce((acc, curr) => acc + curr.price, 0);
 
-  async function handleCreateOrder() {
+  function handleUpdateMenu(id, newName, newPrice) {
+    const data = { name: newName, price: newPrice };
+
+    updateMenuMutation.mutate({ id, ...data });
+  }
+
+  function handleDeleteMenu(id) {
+    deleteMenuMutation.mutate(id);
+  }
+
+  function handleCreateOrder() {
     const data = {
       customerName: selectedCustomer.currentKey,
       waiterName: selectedWaiter.currentKey,
@@ -28,35 +74,25 @@ function Order() {
       tableNumber,
     };
 
-    try {
-      await axios.post("http://localhost:8800/orders", data);
-    } catch (err) {
-      console.log(err);
-    }
+    addOrderMutation.mutate(data);
   }
 
   async function handleAddOrderDtl() {
     const data = { orderId: orders[0]["COUNT(id)"] + 1, selectedMenu };
-    try {
-      await axios.post("http://localhost:8800/orderdtl", data);
-    } catch (err) {
-      console.log(err);
-    }
+
+    addOrderDtlMutation.mutate(data);
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
     handleCreateOrder();
     handleAddOrderDtl();
 
     setTableNumber("");
-    setSelectedMenu([]);
     setSelectedWaiter(["Select waiter"]);
     setSelectedCustomer(["Select customer"]);
-    alert("Order created!");
+    alert("Order created successfully");
   }
-
-  // console.log(selectedCustomer.currentKey, selectedWaiter.currentKey);
-  // console.log(orders[0]["COUNT(id)"]);
 
   return (
     <div className="flex flex-col py-10 px-16 h-screen overflow-y-auto w-full gap-2">
@@ -93,7 +129,12 @@ function Order() {
             />
           </div>
 
-          <MenuTable setSelectedMenu={setSelectedMenu} menus={menus} />
+          <MenuTable
+            menus={menus}
+            setSelectedMenu={setSelectedMenu}
+            handleUpdateMenu={handleUpdateMenu}
+            handleDeleteMenu={handleDeleteMenu}
+          />
 
           <div>
             <h3 className="py-4 text-lg">Waiter</h3>

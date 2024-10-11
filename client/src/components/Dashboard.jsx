@@ -1,14 +1,30 @@
-import { orderHistory } from "../data/ordersData";
+import { useEffect, useState } from "react";
+import { useDeleteOrder, useGetHistories } from "../data/ordersData";
 import Chart from "./Chart";
 import HistoryTable from "./HistoryTable";
 
 function Dashboard() {
+  const [orderHistory, setOrderHistory] = useState([]);
+
+  const historyQueries = useGetHistories();
+  const deleteOrderMutation = useDeleteOrder();
+
+  useEffect(() => {
+    if (historyQueries.isSuccess) {
+      setOrderHistory(historyQueries.data);
+    }
+  }, [historyQueries.isSuccess, historyQueries.data]);
+
   const customers = orderHistory.map((order) => order.customerName);
   const uniqueCustomers = [...new Set(customers)];
 
   const revenue = orderHistory
     .map((order) => order.price)
     .reduce((cur, val) => cur + val, 0);
+
+  function handleDeleteOrder(id) {
+    deleteOrderMutation.mutate(id);
+  }
 
   return (
     <div className="flex flex-col py-10 px-16 h-screen overflow-y-auto w-full">
@@ -29,13 +45,16 @@ function Dashboard() {
       <div className="flex space-x-8 py-6 w-4/5">
         <div className="flex flex-col rounded-md border w-full p-8 justify-center gap-5">
           Expenses Graph
-          <Chart />
+          <Chart historyQueries={historyQueries.data} />
         </div>
       </div>
       <div className="flex space-x-8 py-6">
         <div className="flex flex-col rounded-md border w-full p-8 justify-center gap-5">
           Order History
-          <HistoryTable />
+          <HistoryTable
+            orderHistory={orderHistory}
+            handleDeleteOrder={handleDeleteOrder}
+          />
         </div>
       </div>
     </div>

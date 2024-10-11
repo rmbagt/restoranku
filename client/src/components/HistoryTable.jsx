@@ -5,11 +5,35 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  getKeyValue,
+  Tooltip,
 } from "@nextui-org/react";
-import { orderHistory, columns } from "../data/ordersData";
+import { columns } from "../data/ordersData";
+import { useCallback } from "react";
+import { RiDeleteBinLine } from "react-icons/ri";
 
-function HistoryTable() {
+function HistoryTable({ orderHistory, handleDeleteOrder }) {
+  const renderCell = useCallback(
+    (item, columnKey, id) => {
+      const cellValue = item[columnKey];
+
+      switch (columnKey) {
+        case "actions":
+          return (
+            <div className="relative flex items-center gap-2">
+              <Tooltip color="danger" content="Delete">
+                <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                  <RiDeleteBinLine onClick={() => handleDeleteOrder(id)} />
+                </span>
+              </Tooltip>
+            </div>
+          );
+        default:
+          return cellValue;
+      }
+    },
+    [handleDeleteOrder]
+  );
+
   return (
     <Table
       aria-label="History table"
@@ -23,7 +47,7 @@ function HistoryTable() {
         {(item) => (
           <TableRow key={item.key}>
             {(columnKey) => (
-              <TableCell>{getKeyValue(item, columnKey)}</TableCell>
+              <TableCell>{renderCell(item, columnKey, item.id)}</TableCell>
             )}
           </TableRow>
         )}

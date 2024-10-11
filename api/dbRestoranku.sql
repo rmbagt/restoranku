@@ -42,5 +42,6 @@ CREATE TABLE orders(
   customerName VARCHAR(30),
 	waiterName VARCHAR(30),
   price INT,
-  tableNumber INT
+  tableNumber INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

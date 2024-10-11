@@ -42,6 +42,25 @@ app.post("/customers", (req, res) => {
   });
 });
 
+app.put("/customers/:id", (req, res) => {
+  const q = "UPDATE customers SET `name`= ? WHERE id = ?";
+  const values = [req.body.name, req.params.id];
+
+  db.query(q, [...values], (err, data) => {
+    if (err) return res
+    return res.json(data);
+  });
+});
+
+app.delete("/customers/:id", (req, res) => {
+  const q = "DELETE FROM customers WHERE id = ?";
+
+  db.query(q, [req.params.id], (err, data) => {
+    if (err) return res
+    return res.json(data);
+  });
+});
+
 app.get("/waiters", (req, res) => {
   const q = "SELECT * FROM waiters";
 
@@ -59,6 +78,29 @@ app.post("/waiters", (req, res) => {
   db.query(q, [values], (err, data) => {
     if (err) return res.send(err);
 
+    return res.json(data);
+  });
+});
+
+app.put("/waiters/:id", (req, res) => {
+  const q = "UPDATE waiters SET `name`= ? WHERE id = ?";
+
+  const values = [
+    req.body.name,
+    req.params.id,
+  ];
+
+  db.query(q, [...values], (err, data) => {
+    if (err) return res.send(err);
+    return res.json(data);
+  });
+});
+
+app.delete("/waiters/:id", (req, res) => {
+  const q = "DELETE FROM waiters WHERE id = ?";
+
+  db.query(q, [req.params.id], (err, data) => {
+    if (err) return res
     return res.json(data);
   });
 });
@@ -98,6 +140,16 @@ app.put("/ingredients/:id", (req, res) => {
   });
 });
 
+app.delete("/ingredients/:id", (req, res) => {
+  const q = "DELETE FROM ingredients WHERE id = ?";
+
+  db.query(q, [req.params.id], (err, data) => {
+    if (err) return res.send(err);
+    return res.json(data);
+  }
+  );
+});
+
 app.get("/menus", (req, res) => {
   const q = "SELECT * FROM menus";
 
@@ -116,6 +168,30 @@ app.post("/menus", (req, res) => {
     if (err) return res.send(err);
 
     return
+  });
+});
+
+app.put("/menus/:id", (req, res) => {
+  const q = "UPDATE menus SET `name`= ?, `price`= ? WHERE id = ?";
+
+  const values = [
+    req.body.name,
+    req.body.price,
+    req.params.id,
+  ];
+
+  db.query(q, [...values], (err, data) => {
+    if (err) return res.send(err);
+    return res.json(data);
+  });
+});
+
+app.delete("/menus/:id", (req, res) => {
+  const q = "DELETE FROM menus WHERE id = ?";
+
+  db.query(q, [req.params.id], (err, data) => {
+    if (err) return res
+    return res.json(data);
   });
 });
 
@@ -151,6 +227,15 @@ app.post("/orders", (req, res) => {
     if (err) return res.send(err);
 
     return
+  });
+});
+
+app.delete("/orders/:id", (req, res) => {
+  const q = "DELETE FROM orders WHERE id = ?";
+
+  db.query(q, [req.params.id], (err, data) => {
+    if (err) return res.send(err);
+    return res.json(data);
   });
 });
 
