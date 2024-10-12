@@ -28,13 +28,6 @@ function Dashboard() {
     setRevenue(revenue);
   }, [orderHistory]);
 
-  // const customers = orderHistory?.map((order) => order.customerName);
-  // const uniqueCustomers = [...new Set(customers)];
-
-  // const revenue = orderHistory
-  //   ?.map((order) => order.price)
-  //   .reduce((cur, val) => cur + val, 0);
-
   function handleDeleteOrder(id) {
     deleteOrderMutation.mutate(id);
   }
