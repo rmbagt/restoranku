@@ -1,21 +1,32 @@
 import express from "express";
-import mysql from "mysql";
 import cors from "cors";
+import mysql from "mysql2";
+// import pkg from 'pg'
+// const { Pool } = pkg;
 
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config("/.env");
 
 const app = express();
-const port = process.env.PORT || 8800;
+const port = 8800;
 app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 });
+
+// const db = new Pool({
+//   host: process.env.DB_HOST,
+//   port: process.env.DB_PORT,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.DB_NAME,
+// });
 
 app.get("/", (req, res) => {
   res.json("Welcome to Restoranku API");

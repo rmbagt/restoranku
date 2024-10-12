@@ -8,6 +8,8 @@ function Dashboard() {
 
   const historyQueries = useGetHistories();
   const deleteOrderMutation = useDeleteOrder();
+  const [uniqueCustomers, setUniqueCustomers] = useState([]);
+  const [revenue, setRevenue] = useState(0);
 
   useEffect(() => {
     if (historyQueries.isSuccess) {
@@ -15,12 +17,23 @@ function Dashboard() {
     }
   }, [historyQueries.isSuccess, historyQueries.data]);
 
-  const customers = orderHistory.map((order) => order.customerName);
-  const uniqueCustomers = [...new Set(customers)];
+  useEffect(() => {
+    if (!orderHistory) return;
+    const customers = orderHistory?.map((order) => order.customerName);
+    const revenue = orderHistory
+      ?.map((order) => order.price)
+      .reduce((cur, val) => cur + val, 0);
 
-  const revenue = orderHistory
-    .map((order) => order.price)
-    .reduce((cur, val) => cur + val, 0);
+    setUniqueCustomers([...new Set(customers)]);
+    setRevenue(revenue);
+  }, [orderHistory]);
+
+  // const customers = orderHistory?.map((order) => order.customerName);
+  // const uniqueCustomers = [...new Set(customers)];
+
+  // const revenue = orderHistory
+  //   ?.map((order) => order.price)
+  //   .reduce((cur, val) => cur + val, 0);
 
   function handleDeleteOrder(id) {
     deleteOrderMutation.mutate(id);
