@@ -32,12 +32,12 @@ Restoranku is a powerful dashboard page designed to assist restaurant owners in 
 
 ## Installation
 
-**NOTES**: Make sure you have installed NPM and MySQL on your machine.
+**NOTES**: Make sure you have installed npm/bun and MySQL on your machine.
 
 1. Clone this repository
 
 ```bash
-  git clone https://github.com/reynaldomarchell/restoranku.git
+  git clone https://github.com/rmbagt/restoranku.git
 ```
 
 2.  Go to the project directory and open VS Code
@@ -57,11 +57,16 @@ Restoranku is a powerful dashboard page designed to assist restaurant owners in 
 
 5. Paste the SQL code that you have copied here
 
-6. On api directory, change `.env.example` to `.env`, then fill in your MySQL username and password
+6. Change `.env.example` to `.env`, then populate the env
 
 ```bash
+  # API
   DB_USER=[username]
   DB_PASSWORD=[password]
+
+  # CLIENT
+  VITE_API_URL=[your_api_url]
+
 ```
 
 7. Open new terminal in api directory, install the dependencies and start the server
